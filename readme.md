@@ -5,7 +5,6 @@
 This Arduino-based project implements a **PWR/SWR meter** that measures Forward (Direct) and Reflected RF voltages using ADC inputs, calculates SWR (Standing Wave Ratio), and tracks Peak Envelope Power (PeP) and Peak SWR. The measured values are displayed on an analog milliammeter via PWM output.
 
 ---
-Author: Adrian Florescu YO3HJV @2026
 
 ## Hardware Connections
 
@@ -131,12 +130,24 @@ Main execution cycle (runs continuously):
 ### Calibration Parameters
 | Parameter | Default | Purpose |
 |-----------|---------|---------|
-| `cor_adc` | 0.858 | ADC reference voltage correction |
+| `cor_adc` | 0.858 | ADC reference voltage correction factor |
 | `pwr_factor` | 8 | Power indicator calibration |
 | `swr_factor` | 0 | SWR indicator calibration (not currently used) |
 | `num_samples` | 3 | Number of ADC samples to average |
 | `adcSamplingInterval` | 5 | Minimum interval between ADC readings (ms) |
 | `printInterval` | 500 | Serial debug output interval (ms) |
+
+#### ADC Reference Correction (`cor_adc`)
+The `cor_adc` variable compensates for the difference between the theoretical ADC reference voltage (5V) and the actual voltage supplied by the Arduino. The ADC conversion formula is:
+
+```
+voltage = cor_adc × (adc_reading / num_samples) × (5 / 1023)
+```
+
+**Calibration procedure:**
+1. Measure the actual voltage on the Arduino's 5V pin with a multimeter
+2. Adjust `cor_adc` so that ADC readings match real measured values
+3. Example: If the 5V pin actually measures 4.29V, the correction factor accounts for this discrepancy
 
 ### Full Scale Deflection (FSD)
 - **Power meter**: 130W FSD
