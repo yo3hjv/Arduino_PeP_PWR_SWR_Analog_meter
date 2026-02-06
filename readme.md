@@ -18,6 +18,7 @@ This Arduino-based project implements a **PWR/SWR meter** that measures Forward 
 | **D6** | `pinF6` | Function pin: **PeP SWR** (peak SWR / SWR Max) |
 | **D7** | `PeakResetPin` | Push button to reset PeP PWR and PeP SWR values |
 | **D9** | `maPin` | PWM output to drive the analog milliammeter |
+| **D11** | `backlightPin` | PWM output to drive the Backlight LEDs (Ver. 1.2) |
 
 ### Notes on Connections
 - All function switch pins (D3, D4, D5, D6) and the PeakResetPin (D7) use **internal pull-up resistors** - active LOW logic
@@ -177,3 +178,4 @@ DirV: x.xxx   RevV: x.xxx   SWR: x.xx   swrMax: x.xx   PWR: xxx.x   pPWR: xxx.x
 ```
 
 This allows real-time monitoring and calibration verification.
+
